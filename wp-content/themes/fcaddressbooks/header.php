@@ -24,7 +24,7 @@
 
 <?php wp_body_open(); ?>
 
-<header class="header">
+<?php /* ?><header class="header">
 	<div class="site-container">
 		<div class="header-blocks">
 			<div class="left-block">
@@ -35,4 +35,4 @@
 			</div>
 		</div>
 	</div>
-</header>
+</header><?php */ ?>

@@ -40,6 +40,15 @@
             line-height: 29px;
         }
     }
+    .logo-wrapper {
+        border: 1px solid $fc_darkblue;
+        border-radius: 10px;
+        padding: 15px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 21px;
+        font-size: 24px;
+    }
     .intro-form {
         display: inline-block;
         width: 75%;
@@ -51,6 +60,10 @@
             font-size: 20px;
             line-height: 30px;
             margin-bottom: 5px;
+        }
+        p {
+            font-size: 15px;
+            line-height: 25px;
         }
     }
 }
@@ -76,5 +89,108 @@ form {
             background-color: $fc_darkblue;
             color: #fff;
         }
+    }
+    .form-group {
+        margin-bottom: 28px;
+    }
+    .parsley-errors-list {
+        text-align: left;
+        font-size: 13px;
+        margin-bottom: 0;
+        color: #f10000;
+        position: relative;
+        li {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+
+.address-list-block {
+    padding: 50px 0;
+    background-color: $fc_darkblue;
+    color: #fff;
+    .address-list-head {
+        margin-bottom: 30px;
+        h2 {
+            color: #fff;
+            font-size: 40px;
+            line-height: 50px;
+        }
+    }
+    .dataTables_wrapper .dataTables_length, 
+    .dataTables_wrapper .dataTables_filter, 
+    .dataTables_wrapper .dataTables_info, 
+    .dataTables_wrapper .dataTables_processing, 
+    .dataTables_wrapper .dataTables_paginate {
+        color: #fff;
+        font-size: 15px;
+    }
+    .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        height: 35px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+        padding: 5px;
+    }
+    #address_list {
+        padding: 30px 0;
+        text-align: left;
+        thead {
+            background-color: $fc_lightblue;
+            border-bottom: 1px solid $fc_lightblue;
+        }
+        tbody {
+            color: $fc_darkblue;
+            font-size: 15px;
+        }
+        .btn-danger,
+        .btn-primary {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
+
+    table.dataTable.no-footer {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    table.dataTable thead th, table.dataTable thead td {
+        border-bottom: 1px solid $fc_lightblue;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 4px 11px;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: #fff;
+        border: 1px solid #fff;
+    }
+    .dataTables_paginate.paging_simple_numbers {
+        padding-top: 10px;
+    }
+    .delete-address, .view-address {
+        display: inline-block;
+    }
+}
+
+.response {
+    font-size: 14px;
+    color: #fff;
+    .success,
+    .error {
+        padding: 5px;
+     }
+    .success {
+        background-color: green;
+    }
+    .error {
+        background-color: #920000;
     }
 }

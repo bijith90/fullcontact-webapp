@@ -120,8 +120,13 @@ add_action( 'widgets_init', 'fcaddressbooks_widgets_init' );
  * Enqueue scripts and styles.
  */
 function fcaddressbooks_scripts() {
+
+	// Styles
 	wp_enqueue_style( 'main-styles', get_template_directory_uri() . '/stylesheets/main-styles-v4.css' );
 	wp_enqueue_style( 'style-css', get_template_directory_uri() . '/stylesheets/style.css' );
+
+	// Scripts
+	wp_enqueue_script( 'main-scripts', get_template_directory_uri() . '/js/main-scripts-v4.js', array(), '', false );
 }
 add_action( 'wp_enqueue_scripts', 'fcaddressbooks_scripts' );
 

@@ -1,7 +1,6 @@
 <?php
 // Address Listing Table
 function fc_display_address_list($addresses) {
-	// var_dump($addresses); die;
 	if( $addresses ) {
 	?>
 	<table id="address_list" class="display">
@@ -25,11 +24,40 @@ function fc_display_address_list($addresses) {
 	            <td><?php echo $addresses[$i]['address_phone']; ?></td>
 	            <td>
 	            	<div class="delete-address">
-	            		<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" onsubmit="return confirm('Are you sure?);">
+	            		<form name="delete_address_form_<?php echo $i; ?>" id="delete_address_form_<?php echo $i; ?>" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" onsubmit="return confirm('Are you sure ?');">
 							<input type="hidden" name="post_id" value="<?php echo $addresses[$i]['post_id']; ?>">
 							<?php wp_nonce_field( 'delete_the_address', 'fc_form_deletion_nonce' ); ?>
 	            			<button type="submit" name="delete-address" class="btn btn-danger" >Delete</button>
+	            			
 	            		</form>
+	            	</div>
+	            	<div class="view-address">
+
+	            		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#address_modal_<?php echo $i; ?>">
+	            		  View
+	            		</button>
+	            		
+	            		<div class="modal fade" id="address_modal_<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	            		  <div class="modal-dialog" role="document">
+	            		    <div class="modal-content">
+	            		      <div class="modal-header text-center">
+	            		      	<h5>Address Details</h5>
+	            		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            		          <span aria-hidden="true">&times;</span>
+	            		        </button>
+	            		      </div>
+	            		      <div class="modal-body">
+	            		        <p><strong>First Name:</strong> <?php echo $addresses[$i]['firstname']; ?></p>
+	            		        <p><strong>Last Name:</strong> <?php echo $addresses[$i]['lastname']; ?></p>
+	            		        <p><strong>Email:</strong> <?php echo $addresses[$i]['address_email']; ?></p>
+	            		        <p><strong>Phone:</strong> <?php echo $addresses[$i]['address_phone']; ?></p>
+	            		      </div>
+	            		      <div class="modal-footer">
+	            		        
+	            		      </div>
+	            		    </div>
+	            		  </div>
+	            		</div>
 	            	</div>
 	        	</td>
 	        </tr>
@@ -104,7 +132,10 @@ function fc_delete_address() {
 		$delete_post = wp_delete_post( $post_id );
 
 		if( $delete_post ) {
-			echo '<div class="response"><p class="success">Address Deleted</p></div>';
+			// echo '<div class="response"><p class="success">Address Deleted</p></div>';
+			echo "<script type='text/javascript'>
+			        window.location=document.location.href;
+			        </script>";
 		} else {
 			echo '<div class="response"><p class="success">Error! Please try again</p></div>';
 		}

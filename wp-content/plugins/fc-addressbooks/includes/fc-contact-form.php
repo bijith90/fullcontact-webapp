@@ -5,22 +5,22 @@ function fc_contact_form() {
 	<form name="address_form" id="address_form" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post">
 		<div class="form-group row">
 			<div class="col-sm-12">
-		    	<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required value="<?php isset( $_POST["firstname"] ) ? esc_attr( $_POST["firstname"] ) : '' ; ?>">
+		    	<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required data-parsley-required-message="First Name is required" value="<?php isset( $_POST["firstname"] ) ? esc_attr( $_POST["firstname"] ) : '' ; ?>">
 		  	</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-sm-12">
-		    	<input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required value="<?php isset( $_POST["lastname"] ) ? esc_attr( $_POST["lastname"] ) : '' ; ?>">
+		    	<input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required data-parsley-required-message="Last Name is required" value="<?php isset( $_POST["lastname"] ) ? esc_attr( $_POST["lastname"] ) : '' ; ?>">
 		  	</div>
 		</div>
 		<div class="form-group row">
 		  	<div class="col-sm-12">
-		    	<input type="email" name="address-email" id="address-email" class="form-control" placeholder="Email" required value="<?php isset( $_POST["address-email"] ) ? esc_attr( $_POST["address-email"] ) : '' ; ?>">
+		    	<input type="email" name="address-email" id="address-email" class="form-control" placeholder="Email" required data-parsley-type="email" data-parsley-required-message="Email ID is required" data-parsley-type-message="Invalid Email ID" value="<?php isset( $_POST["address-email"] ) ? esc_attr( $_POST["address-email"] ) : '' ; ?>">
 		  	</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-sm-12">
-		    	<input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone" required value="<?php isset( $_POST["phone"] ) ? esc_attr( $_POST["phone"] ) : '' ; ?>" >
+		    	<input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone" required data-parsley-required-message="Phone number is required" value="<?php isset( $_POST["phone"] ) ? esc_attr( $_POST["phone"] ) : '' ; ?>" >
 		  	</div>
 		</div>
 		<div class="form-group row">
@@ -30,6 +30,12 @@ function fc_contact_form() {
 		    </div>
 		</div>
 	</form>
+
+	<script>
+		jQuery(function($){
+			$("#address_form").parsley();
+		});
+	</script>
 	<?php
 }
 

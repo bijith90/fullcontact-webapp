@@ -7,6 +7,7 @@ function fc_address_book_scripts() {
 	// Scripts
 	// wp_enqueue_script('fc-jquery', plugins_url().'/fc-addressbooks/js/jquery.min.js', array('jquery'));
 	wp_enqueue_script( 'fc-datatable-js', 'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js', array('jquery'), '', false );
+	wp_enqueue_script('fc-parsley-js',plugins_url().'/fc-addressbooks/js/parsley.min.js', array('jquery'));
 }
 
 add_action('wp_enqueue_scripts','fc_address_book_scripts');
