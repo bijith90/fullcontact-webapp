@@ -1,0 +1,95 @@
+// Mixins
+@mixin margin-padding-reset {
+  margin: 0px;
+  padding: 0px;
+}
+@mixin side-margin-reset {
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+@mixin side-padding-reset {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+@mixin box-sizer($size) {
+  -webkit-box-sizing: $size;
+  -moz-box-sizing: $size;
+  -ms-box-sizing: $size;
+  box-sizing: $size;
+}
+@mixin img-config {
+  max-width: 100%;
+  height: auto;
+}
+@mixin custom-icon-settings($width, $height, $image) {
+  width: $width;
+  height: $height;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  vertical-align: middle;
+  background-image: $image;
+}
+@mixin transition-effect($seconds) {
+  -webkit-transition: $seconds;
+  -moz-transition: $seconds;
+  -ms-transition: $seconds;
+  -o-transition: $seconds;
+  transition: $seconds;
+}
+@mixin background-image-settings {
+  background-repeat: no-repeat;
+  @include background-size(cover);
+}
+@mixin background-size($size) {
+  -webkit-background-size: $size;
+  -moz-background-size: $size;
+  -ms-background-size: $size;
+  -o-background-size: $size;
+  background-size: $size;
+}
+@mixin transform-translateY($percentage) {
+  -webkit-transform: translateY($percentage);
+  -moz-transform: translateY($percentage);
+  -ms-transform: translateY($percentage);
+  -o-transform: translateY($percentage);
+  transform: translateY($percentage);
+}
+@mixin transform-translateX($percentage) {
+  -webkit-transform: translateX($percentage);
+  -moz-transform: translateX($percentage);
+  -ms-transform: translateX($percentage);
+  -o-transform: translateX($percentage);
+  transform: translateX($percentage);
+}
+@mixin transform-translateXY($x, $y) {
+  -webkit-transform: translate($x, $y);
+  -moz-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+@mixin box-shadow($value) {
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  -ms-box-shadow: $value;
+  -o-box-shadow: $value;
+  box-shadow: $value;
+}
+@mixin image-fill($width, $height) {
+  position: relative;
+  padding-top: ($height / $width) * 100%;
+  img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+

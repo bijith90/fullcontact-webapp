@@ -1,0 +1,44 @@
+// Colors
+
+$fc_lightblue: #4DC6E7;
+$fc_darkblue: #1e1c39;
+$fc_blue: #404aaa;
+$fc_green: #33b877;
+$fc_offwhite: #f4f5fa;
+$noimage_bg: #f1f1f1;
+
+// Global resets
+
+* {
+  @include margin-padding-reset;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+  resize: none;
+  @include box-sizer(border-box);
+}
+
+body, html {
+  font-family: $primary-font;
+  font-weight: $regular;
+  font-size: 17px;
+  line-height: 27px;
+  color: $fc_darkblue;
+  background-color: #f6f7fb;
+  @include margin-padding-reset;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.site-container {
+  width: 1600px;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.site-long-container {
+  width: 1680px;
+  max-width: 90vw;
+  margin: 0 auto;
+}
