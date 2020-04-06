@@ -2,7 +2,7 @@
 // Address Form
 function fc_contact_form() {
 	?>
-	<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post">
+	<form name="address_form" id="address_form" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post">
 		<div class="form-group row">
 			<div class="col-sm-12">
 		    	<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required value="<?php isset( $_POST["firstname"] ) ? esc_attr( $_POST["firstname"] ) : '' ; ?>">
@@ -33,6 +33,32 @@ function fc_contact_form() {
 	<?php
 }
 
+// Check if email already exist
+function fc_check_email_exist($email_id) {
+
+	$email_check_args = array(
+	  'post_type' => 'fc_address',
+	  'meta_query' => array(
+	      array(
+	          'key' => 'address_email',
+	          'value' => $email_id
+	      )
+	  ),
+	  'fields' => 'ids'
+	);
+
+	$email_check_query = new WP_Query( $email_check_args );
+
+	if ( $email_check_query->post_count > 0 ) {
+	    
+	    return true;
+
+	} else {
+
+		return false;
+	}
+}
+
 // Submit and save address form data
 function fc_submit_contact_form() {
 
@@ -46,6 +72,14 @@ function fc_submit_contact_form() {
 		$lastname = sanitize_text_field( $_POST["lastname"] );
         $email = sanitize_email( $_POST["address-email"] );
         $phone = sanitize_text_field( $_POST["phone"] );
+
+        // Check if email exist
+        $check_email_exist = fc_check_email_exist($email);
+
+        if( $check_email_exist ) {
+        	echo '<div class="response"><p class="error">Email already exist</p></div>';
+        	return;
+        }
 
         $address_fields = array(
     		'firstname' => $firstname,

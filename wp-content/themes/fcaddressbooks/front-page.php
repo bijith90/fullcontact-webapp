@@ -56,6 +56,14 @@ get_header();
 		</div>
 	</div>
 
+	<div class="address-list-block">
+		<div class="site-container">
+			<div class="address-list-wrap">
+				<?php echo do_shortcode('[fc_address_list]'); ?>
+			</div>
+		</div>
+	</div>
+
 <?php endwhile; endif; wp_reset_postdata(); ?>
 
 <?php
