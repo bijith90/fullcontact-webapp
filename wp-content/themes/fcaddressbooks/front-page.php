@@ -20,7 +20,8 @@ get_header();
 							<h4>Add Contact</h4>
 							<p>Add your contact details</p>
 						</div>
-						<form>
+
+						<?php /* ?><form>
 							<div class="form-group row">
 								<div class="col-sm-12">
 							    	<input type="text" id="firstname" class="form-control" placeholder="First Name">
@@ -46,7 +47,8 @@ get_header();
 							      	<button type="submit" class="btn btn-primary">SUBMIT</button>
 							    </div>
 							</div>
-						</form>
+						</form><?php */ ?>
+						<?php echo do_shortcode('[fc_address_form]'); ?>
 
 					</div>
 				</div>
