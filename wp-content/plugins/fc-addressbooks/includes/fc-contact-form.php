@@ -161,8 +161,6 @@ function fc_submit_contact_form() {
 
         	$address_fields = array_merge($address_fields, $address_extra_fields);
         }
-
-        // var_dump($address_fields);
         
        
         // Saving the address

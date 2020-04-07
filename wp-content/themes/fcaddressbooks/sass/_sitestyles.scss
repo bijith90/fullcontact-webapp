@@ -181,9 +181,37 @@ form {
 }
 
 .address-modal {
-    ul {
-        li {
-            margin-left: 15px;
+    h6 {
+        background-color: $fc_lightblue;
+        color: #fff;
+        padding: 8px 15px;
+        width: 100%;
+    }
+    .modal-header {
+        background-color: $fc_darkblue;
+        h5 {
+            color: #fff;
+        }
+    }
+    .close,
+    .close:hover {
+        opacity: 1;
+        color: #fff;
+    }
+    .close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+        opacity: 1;
+        color: #fff;
+    }
+    .details {
+         
+        ul {
+            font-size: 15px;
+            li {
+                margin-left: 30px;
+                p {
+                    font-size: 15px;
+                }
+            }
         }
     }
 }

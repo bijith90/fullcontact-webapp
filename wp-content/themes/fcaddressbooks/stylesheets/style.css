@@ -223,6 +223,29 @@ form .parsley-errors-list {
   .address-list-block .delete-address, .address-list-block .view-address {
     display: inline-block; }
 
+.address-modal h6 {
+  background-color: #4DC6E7;
+  color: #fff;
+  padding: 8px 15px;
+  width: 100%; }
+.address-modal .modal-header {
+  background-color: #1e1c39; }
+  .address-modal .modal-header h5 {
+    color: #fff; }
+.address-modal .close,
+.address-modal .close:hover {
+  opacity: 1;
+  color: #fff; }
+.address-modal .close:not(:disabled):not(.disabled):focus, .address-modal .close:not(:disabled):not(.disabled):hover {
+  opacity: 1;
+  color: #fff; }
+.address-modal .details ul {
+  font-size: 15px; }
+  .address-modal .details ul li {
+    margin-left: 30px; }
+    .address-modal .details ul li p {
+      font-size: 15px; }
+
 .response {
   font-size: 14px;
   color: #fff; }

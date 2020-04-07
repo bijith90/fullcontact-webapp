@@ -26,7 +26,11 @@ function fc_display_address_list($addresses) {
 	            	<div class="delete-address">
 	            		<form name="delete_address_form_<?php echo $i; ?>" id="delete_address_form_<?php echo $i; ?>" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" onsubmit="return confirm('Are you sure ?');">
 							<input type="hidden" name="post_id" value="<?php echo $addresses[$i]['post_id']; ?>">
-							<?php wp_nonce_field( 'delete_the_address', 'fc_form_deletion_nonce' ); ?>
+							<?php 
+							$nonce_action = 'delete_the_address_'.$addresses[$i]['post_id'];
+							$nonce_name = 'fc_form_deletion_nonce_'.$addresses[$i]['post_id'];
+							?>
+							<?php wp_nonce_field( $nonce_action, $nonce_name ); ?>
 	            			<button type="submit" name="delete-address" class="btn btn-danger" >Delete</button>
 	            			
 	            		</form>
@@ -55,6 +59,7 @@ function fc_display_address_list($addresses) {
 	            		      		<p><strong>Email:</strong> <?php echo $addresses[$i]['address_email']; ?></p>
 	            		      		<p><strong>Phone:</strong> <?php echo $addresses[$i]['address_phone']; ?></p>
 	            		      	</div>
+	            		      	<?php if( $addresses[$i]['full_name'] || $addresses[$i]['age_range'] || $addresses[$i]['gender'] || $addresses[$i]['location'] || $addresses[$i]['organization']  || $addresses[$i]['twitter'] || $addresses[$i]['linkedin'] || $addresses[$i]['facebook'] || $addresses[$i]['bio'] || $addresses[$i]['website'] ) { ?>
 								<hr>
 	            		        <h6>More Details</h6>
 	            		        <br/>
@@ -64,9 +69,21 @@ function fc_display_address_list($addresses) {
 		            		        <p><strong>Gender:</strong> <?php echo $addresses[$i]['gender']; ?></p>
 		            		        <p><strong>Location:</strong> <?php echo $addresses[$i]['location']; ?></p>
 		            		        <p><strong>Organization:</strong> <?php echo $addresses[$i]['organization']; ?></p>
-		            		        <p><strong>Twitter:</strong> <?php echo $addresses[$i]['twitter']; ?></p>
-		            		        <p><strong>Linkedin:</strong> <?php echo $addresses[$i]['linkedin']; ?></p>
-		            		        <p><strong>Facebook:</strong> <?php echo $addresses[$i]['facebook']; ?></p>
+		            		        <p><strong>Twitter:</strong> 
+    	            		        	<?php if( $addresses[$i]['twitter'] ) { ?>
+    										<a href="<?php echo $addresses[$i]['twitter']; ?>" target="_blank"><?php echo $addresses[$i]['twitter']; ?></a>
+    	            		        	<?php } ?>
+		            		        </p>
+		            		        <p><strong>Linkedin:</strong> 
+    	            		        	<?php if( $addresses[$i]['linkedin'] ) { ?>
+    										<a href="<?php echo $addresses[$i]['linkedin']; ?>" target="_blank"><?php echo $addresses[$i]['linkedin']; ?></a>
+    	            		        	<?php } ?>
+		            		        </p>
+		            		        <p><strong>Facebook:</strong> 
+    	            		        	<?php if( $addresses[$i]['facebook'] ) { ?>
+    										<a href="<?php echo $addresses[$i]['facebook']; ?>" target="_blank"><?php echo $addresses[$i]['facebook']; ?></a>
+    	            		        	<?php } ?>
+		            		        </p>
 		            		        <p><strong>Bio:</strong> <?php echo $addresses[$i]['bio']; ?></p>
 		            		        <p><strong>Avatar:</strong> 
 		            		        	<?php if( $addresses[$i]['avatar'] ) { ?>
@@ -75,13 +92,14 @@ function fc_display_address_list($addresses) {
 		            		        </p>
 		            		        <p><strong>Website:</strong> <?php echo $addresses[$i]['website']; ?></p>
 		            		    </div>
+			            		<?php } ?>
+
 		            		    <?php if( $addresses[$i]['details'] ) { ?>
 	            		        <hr>
 	            		        <h6>Extra Details</h6>
 								<br/>
 	            		        <?php 
 	            		        $extra_details = json_decode($addresses[$i]['details']);
-	            		        // var_dump($extra_details);
 	            		        ?>
 	            		        <div class="details">
 	            		        	<ul>
@@ -199,23 +217,32 @@ function fc_get_adrresses() {
 	}
 }
 
-// Delete address
+
 function fc_delete_address() {
 
-	if( isset( $_POST['delete-address'] ) && wp_verify_nonce( $_POST['fc_form_deletion_nonce'], 'delete_the_address' ) ) {
+	if( isset( $_POST['delete-address'] ) ) {
 
 		$post_id = sanitize_text_field( $_POST["post_id"] );
 
-		$delete_post = wp_delete_post( $post_id );
+		if($post_id) {
 
-		if( $delete_post ) {
-			// echo '<div class="response"><p class="success">Address Deleted</p></div>';
-			echo "<script type='text/javascript'>
-			        window.location=document.location.href;
-			        </script>";
-		} else {
-			echo '<div class="response"><p class="success">Error! Please try again</p></div>';
+			$posted_nonce_action = 'delete_the_address_'.$post_id;
+			$posted_nonce_name = 'fc_form_deletion_nonce_'.$post_id;
+
+			if( wp_verify_nonce( $_POST[$posted_nonce_name], $posted_nonce_action  ) ) {
+				
+				$delete_post = wp_delete_post( $post_id );
+
+				if( $delete_post ) {
+					echo "<script type='text/javascript'>
+					        window.location=document.location.href;
+					        </script>";
+				} else {
+					echo '<div class="response"><p class="success">Error! Please try again</p></div>';
+				}
+			}
 		}
+		
 	}
 }
 

@@ -21,34 +21,7 @@ get_header();
 							<h4>Add Contact</h4>
 							<p>Add your address here and enrich with our API</p>
 						</div>
-
-						<?php /* ?><form>
-							<div class="form-group row">
-								<div class="col-sm-12">
-							    	<input type="text" id="firstname" class="form-control" placeholder="First Name">
-							  	</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12">
-							    	<input type="text" id="lastname" class="form-control" placeholder="Last Name">
-							  	</div>
-							</div>
-							<div class="form-group row">
-							  	<div class="col-sm-12">
-							    	<input type="email" id="email" class="form-control" placeholder="Email">
-							  	</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12">
-							    	<input type="text" id="phone" class="form-control" placeholder="Phone">
-							  	</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12">
-							      	<button type="submit" class="btn btn-primary">SUBMIT</button>
-							    </div>
-							</div>
-						</form><?php */ ?>
+						
 						<?php echo do_shortcode('[fc_address_form]'); ?>
 
 					</div>
