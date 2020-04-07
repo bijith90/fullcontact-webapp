@@ -39,15 +39,15 @@ function fc_contact_form() {
 	<?php
 }
 
-// Check if email already exist
-function fc_check_email_exist($email_id) {
+// Check if key value already exist
+function fc_check_keyvalue_exist($key, $value) {
 
 	$email_check_args = array(
 	  'post_type' => 'fc_address',
 	  'meta_query' => array(
 	      array(
-	          'key' => 'address_email',
-	          'value' => $email_id
+	          'key' => $key,
+	          'value' => $value
 	      )
 	  ),
 	  'fields' => 'ids'
@@ -65,6 +65,40 @@ function fc_check_email_exist($email_id) {
 	}
 }
 
+// Call fullcontact api using email id and get additional address info
+function fc_get_additional_address_info($email) {
+
+	$data = array('emails'=> array($email));
+	 
+	$data_json = json_encode($data);
+	 
+	$url = 'https://api.fullcontact.com/v3/person.enrich';
+	 
+	$ch = curl_init();
+	 
+	curl_setopt($ch, CURLOPT_URL, $url);
+	 
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer RzLfgEPtARK0JyWXlPcVAN8C0SXvaiiu', 'Content-Type: application/json'));
+	 
+	curl_setopt($ch, CURLOPT_POST, 1);
+	 
+	curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
+	 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	 
+	$response  = curl_exec($ch);
+
+	$response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	 
+	curl_close($ch);
+
+	if( $response_code == 200) {
+		return $response;
+	} else {
+		return false;
+	}
+} 
+
 // Submit and save address form data
 function fc_submit_contact_form() {
 
@@ -80,10 +114,18 @@ function fc_submit_contact_form() {
         $phone = sanitize_text_field( $_POST["phone"] );
 
         // Check if email exist
-        $check_email_exist = fc_check_email_exist($email);
+        $check_email_exist = fc_check_keyvalue_exist('address_email', $email);
 
         if( $check_email_exist ) {
         	echo '<div class="response"><p class="error">Email already exist</p></div>';
+        	return;
+        }
+
+        // Check if phone exist
+        $check_phone_exist = fc_check_keyvalue_exist('address_phone', $phone);
+
+        if( $check_phone_exist ) {
+        	echo '<div class="response"><p class="error">Phone number already exist</p></div>';
         	return;
         }
 
@@ -94,8 +136,35 @@ function fc_submit_contact_form() {
     		'address_phone' => $phone
         );
 
-        // Enrich Address
+        // Call API and get additional address info
+        $additional_address_info = fc_get_additional_address_info($email);
 
+        // Enrich address
+        if( $additional_address_info ) {
+
+        	$additional_address_info = json_decode($additional_address_info);
+
+        	$address_extra_fields = array(
+        		'full_name' => $additional_address_info->fullName,
+        		'age_range' => $additional_address_info->ageRange,
+        		'gender' => $additional_address_info->gender,
+        		'location' => $additional_address_info->location,
+        		'organization' => $additional_address_info->organization,
+        		'twitter' => $additional_address_info->twitter,
+        		'linkedin' => $additional_address_info->linkedin,
+        		'facebook' => $additional_address_info->facebook,
+        		'bio' => $additional_address_info->bio,
+        		'avatar' => $additional_address_info->avatar,
+        		'website' => $additional_address_info->website,
+        		'details' => json_encode($additional_address_info->details)
+        	);
+
+        	$address_fields = array_merge($address_fields, $address_extra_fields);
+        }
+
+        // var_dump($address_fields);
+        
+       
         // Saving the address
         $address_array = array(
         	'post_title' => $firstname." ".$firstname,
